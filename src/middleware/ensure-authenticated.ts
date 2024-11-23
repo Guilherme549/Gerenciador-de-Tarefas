@@ -9,7 +9,7 @@ interface TokenPayload {
     sub: string
 }
 
-export function ensureAuthenticated(request: Request, response: Response, next: NextFunction){
+function ensureAuthenticated(request: Request, response: Response, next: NextFunction){
     try {
         const authHeader = request.headers.authorization
 
@@ -18,6 +18,7 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
         }
 
         const [, token] = authHeader.split(" ")
+
 
         // sub (renomeado para user_id). O payload precisa corresponder à estrutura definida em TokenPayload.
         const { role, sub: user_id } = verify(token, authConfig.jwt.secret) as TokenPayload
@@ -32,3 +33,5 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
         throw new AppError("Invalid JWT token", 401)
     }
 }
+
+export { ensureAuthenticated }
