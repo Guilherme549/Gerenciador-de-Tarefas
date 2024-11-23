@@ -9,12 +9,18 @@
   "author": "Guilherme Francisco",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.19.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20.14.12",
     "tsx": "^4.16.2",
     "typescript": "^5.5.4"
