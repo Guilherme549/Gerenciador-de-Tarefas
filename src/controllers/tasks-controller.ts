@@ -62,6 +62,43 @@ class TasksController {
         return response.json( {Tasks: listTasks})
     }
 
-}
+    async updated(request: Request, response: Response){
+        const paramsSchema = z.object({
+            id: z.string().uuid(),
+        })
+
+        const bodySchema = z.object({
+            title: z.string().max(200),
+            description: z.string().min(1),
+            status: z.enum(['pending','in_progress','completed']),
+            priority: z.enum(['high','average','low']),
+            assigned_to: z.string().uuid(),
+            team_id: z.string().uuid().optional()
+        })
+
+        const { id } = paramsSchema.parse(request.params)
+        const { title, description, status, priority, assigned_to, team_id} = bodySchema.parse(request.body)
+
+        const task = await prisma.task.update({
+            where: {
+                id
+            },
+
+            data : {
+                title: title || undefined,
+                description: description || undefined,
+                status: status || undefined,
+                priority:  priority || undefined,
+                assignedTo: assigned_to || undefined,
+                teamId: team_id || undefined,
+            }
+
+        })
+
+
+
+        return response.json(task)
+    }
+}   
 
 export { TasksController }

@@ -8,5 +8,6 @@ const tasksController = new TasksController()
 tasksRouter.use(ensureAuthenticated)
 tasksRouter.post("/", tasksController.create)
 tasksRouter.get("/", tasksController.index)
+tasksRouter.put("/:id", tasksController.updated)
 
 export { tasksRouter }
