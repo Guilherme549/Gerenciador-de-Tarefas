@@ -9,5 +9,6 @@ tasksRouter.use(ensureAuthenticated)
 tasksRouter.post("/", tasksController.create)
 tasksRouter.get("/", tasksController.index)
 tasksRouter.put("/:id", tasksController.updated)
+tasksRouter.delete("/:id/delete", tasksController.delete)
 
 export { tasksRouter }

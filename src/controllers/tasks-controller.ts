@@ -123,6 +123,28 @@ class TasksController {
 
         return response.json(task)
     }
+
+    async delete(request: Request, response: Response){
+        const paramsSchema = z.object({
+            id: z.string().uuid(),
+        })
+
+        const { id } = paramsSchema.parse(request.params)
+
+        const taskExist = await prisma.task.findUnique({
+            where: { id }
+        })
+
+        if(!taskExist){
+            throw new AppError("This task doesn't exist.")
+        }
+
+        const deleteTask = await prisma.task.delete({
+            where: { id }
+        })
+
+        return response.status(204).json()
+    }
 }   
 
 export { TasksController }
