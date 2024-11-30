@@ -50,8 +50,6 @@ O **Gerenciador de Tarefas** é uma API voltada para o gerenciamento de equipes 
   - ORM: Prisma
 - **Testes**:
   - Framework: Jest
-- **Deploy**:
-  - Plataforma: Render
 - **Outros**:
   - Docker
   - TypeScript
