@@ -79,6 +79,30 @@ class TasksController {
         const { id } = paramsSchema.parse(request.params)
         const { title, description, status, priority, assigned_to, team_id} = bodySchema.parse(request.body)
 
+        const taskExist = await prisma.task.findUnique({
+           where: { id } 
+        })
+
+        if(!taskExist){
+            throw new AppError("This task doesn't exist.")
+        }
+
+        const userExsit = await prisma.user.findUnique({
+            where: { id: assigned_to }
+        })
+
+        if(!userExsit){
+            throw new AppError("This user doesn't exist.")
+        }
+
+        const teamsExist = await prisma.team.findUnique({
+            where: { id: team_id}
+        })
+
+        if(!teamsExist){
+            throw new AppError("This Team doesn't exist.")
+        }
+
         const task = await prisma.task.update({
             where: {
                 id
