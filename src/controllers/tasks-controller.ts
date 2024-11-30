@@ -57,7 +57,7 @@ class TasksController {
 
     async index(request: Request, response: Response){
         const listTasks = await prisma.task.findMany()
-
+        
 
         return response.json( {Tasks: listTasks})
     }
