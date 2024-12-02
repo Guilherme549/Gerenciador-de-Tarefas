@@ -147,7 +147,7 @@ class TasksController {
 
         })
 
-        const task_history = await prisma.task_history.create({
+        await prisma.task_history.create({
             data: {
                 task_id: id,
                 changed_by: request.user?.id,
@@ -177,7 +177,7 @@ class TasksController {
             throw new AppError("This task doesn't exist.")
         }
 
-        const deleteTask = await prisma.task.delete({
+       prisma.task.delete({
             where: { id }
         })
 
