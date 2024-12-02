@@ -1,5 +1,6 @@
 import { prisma } from "@/database/prisma";
 import { AppError } from "@/utils/AppError";
+import { validTeamOrAdm } from "@/utils/validTeamOrAdm";
 import { Request, Response } from "express";
 import { z } from "zod"
 
@@ -56,10 +57,26 @@ class TasksController {
     }
 
     async index(request: Request, response: Response){
-        const listTasks = await prisma.task.findMany()
-        
+        const paramsSchema = z.object({
+            id: z.string().uuid()
+        })
 
-        return response.json( {Tasks: listTasks})
+        const { id } = paramsSchema.parse(request.params)
+
+        await validTeamOrAdm(request, id)
+
+        const listTaskOfUserTeams = await prisma.task.findMany({
+            where: { teamId: id },
+            include: {
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+        
+        return response.json( {Tasks: listTaskOfUserTeams})
     }
 
     async updated(request: Request, response: Response){
