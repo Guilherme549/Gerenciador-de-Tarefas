@@ -68,6 +68,11 @@ class TasksController {
         const listTaskOfUserTeams = await prisma.task.findMany({
             where: { teamId: id },
             include: {
+                team: {
+                    select: {
+                        name: true
+                    }
+                },
                 user: {
                     select: {
                         name: true
@@ -95,6 +100,8 @@ class TasksController {
 
         const { id } = paramsSchema.parse(request.params)
         const { title, description, status, priority, assigned_to, team_id} = bodySchema.parse(request.body)
+
+        await validTeamOrAdm(request, id)
 
         const taskExist = await prisma.task.findUnique({
            where: { id } 
@@ -147,6 +154,8 @@ class TasksController {
         })
 
         const { id } = paramsSchema.parse(request.params)
+
+        await validTeamOrAdm(request, id)
 
         const taskExist = await prisma.task.findUnique({
             where: { id }
