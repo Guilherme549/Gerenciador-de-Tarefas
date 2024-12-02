@@ -4,6 +4,10 @@ import { validTeamOrAdm } from "@/utils/validTeamOrAdm";
 import { Request, Response } from "express";
 import { z } from "zod"
 
+const date = new Date()
+
+const horaBrasilia = new Date(new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+
 class TasksController {
     async create(request: Request, response: Response){
         const bodySchema = z.object({
@@ -143,7 +147,15 @@ class TasksController {
 
         })
 
-
+        const task_history = await prisma.task_history.create({
+            data: {
+                task_id: id,
+                changed_by: request.user?.id,
+                old_status: taskExist.status,
+                new_status: status,
+                changedAt: horaBrasilia,
+            }
+        })
 
         return response.json(task)
     }
