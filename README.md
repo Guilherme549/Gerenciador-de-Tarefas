@@ -1,3 +1,9 @@
+# Nome dos integrantes do grupo
+- Guilherme Francisco Alves Ribeiro - (2210748)
+- Arthur Augustinho dos Anjos (2210974)
+- Antônio Martins da Costa Filho (2212231)
+- Kevin Diógenes Fonseca (2212151)
+
 # Gerenciador de Tarefas
 
 ## Descrição
