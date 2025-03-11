@@ -3,7 +3,7 @@
 - Arthur Augustinho dos Anjos (2210974)
 - Antônio Martins da Costa Filho (2212231)
 - Kevin Diógenes Fonseca (2212151)
-
+- João Armandes Vieira Costa - (2210768)
 # Gerenciador de Tarefas
 
 ## Descrição
